@@ -2,9 +2,11 @@ package pms.sz.task.pmssz.Service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pms.sz.task.pmssz.Entity.Task;
 import pms.sz.task.pmssz.Mapper.ITaskMapper;
 import pms.sz.task.pmssz.Service.TaskService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,21 @@ public class TaskServiceImpl implements TaskService {
         Map where = new HashMap();
         where.put("type",type);
         where.put("module_id",module_id);
-        return iTaskMapper.selectByMap(where);
+        List taskList= iTaskMapper.selectByMap(where);
+        return setTaskTree(taskList,0);
+    }
+
+
+    private List setTaskTree(List<Task> list ,Integer parent_id)
+    {
+        List<Task> returnList = new ArrayList<>();
+        for (Task item:list){
+            if (item.getParentId() == parent_id){
+                item.setChildren(setTaskTree(list,item.getId()));
+                returnList.add(item);
+            }
+        }
+
+        return returnList;
     }
 }
