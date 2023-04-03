@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="pms.sz.task.pmssz.Mapper.ITaskMapper">
+    <select id="getTaskList" parameterType="java.util.Map" resultType="pms.sz.task.pmssz.Entity.Task">
+        select pms_task.*,
+        pms_routine_status.routine_status_name as status_text,pms_routine_status.color as status_color
+        from pms_task
+        left join pms_routine_status on pms_task.status = pms_routine_status.id
+        where pms_task.deleted_at is null and pms_routine_status.deleted_at is null
+        and pms_task.type=#{type} and pms_task.module_id=#{module_id}
+    </select>
+
+</mapper>

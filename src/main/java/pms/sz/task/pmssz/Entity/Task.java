@@ -79,9 +79,15 @@ public class Task {
 
     private  String updateUser;
 
-    private transient List<Task> children;
-
     private transient String moduleName;
 
     private transient String moduleCode;
+
+    private transient String statusText;
+
+    private transient  String statusColor;
+
+    private transient List<Task> children;
+
+
 }

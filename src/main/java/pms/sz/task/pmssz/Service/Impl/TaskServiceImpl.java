@@ -23,7 +23,7 @@ public class TaskServiceImpl implements TaskService {
         Map where = new HashMap();
         where.put("type",type);
         where.put("module_id",module_id);
-        List taskList= iTaskMapper.selectByMap(where);
+        List taskList= iTaskMapper.getTaskList(where);
         return setTaskTree(taskList,0);
     }
 
