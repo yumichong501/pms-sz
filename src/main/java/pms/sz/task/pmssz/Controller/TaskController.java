@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pms.sz.task.pmssz.Entity.Task;
 import pms.sz.task.pmssz.Exception.JsonResponseInfo;
 import pms.sz.task.pmssz.Service.TaskService;
 import pms.sz.task.pmssz.Utils.ResponseUtils;
@@ -24,5 +25,12 @@ public class TaskController {
     {
         List taskList = taskService.getTaskList(type,moduleId);
         return ResponseUtils.success(taskList);
+    }
+
+    @GetMapping("/task/getTask")
+    public JsonResponseInfo getTask(@RequestParam @NotNull(message = "参数异常") Integer id)
+    {
+        Task taskDetail = taskService.getTask(id);
+        return ResponseUtils.success(taskDetail);
     }
 }

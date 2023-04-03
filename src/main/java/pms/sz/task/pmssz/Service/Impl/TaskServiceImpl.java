@@ -17,6 +17,7 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private ITaskMapper iTaskMapper;
 
+    //任务列表
     @Override
     public List getTaskList(Integer type, Integer module_id) {
         Map where = new HashMap();
@@ -24,6 +25,15 @@ public class TaskServiceImpl implements TaskService {
         where.put("module_id",module_id);
         List taskList= iTaskMapper.selectByMap(where);
         return setTaskTree(taskList,0);
+    }
+
+    //任务详情
+    public Task getTask(Integer id)
+    {
+        Map where = new HashMap();
+        where.put("id",id);
+        Task taskDetail = iTaskMapper.selectById(id);
+        return taskDetail;
     }
 
 
