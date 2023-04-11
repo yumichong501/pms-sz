@@ -32,7 +32,7 @@ public class TaskServiceImpl implements TaskService {
     {
         Map where = new HashMap();
         where.put("id",id);
-        Task taskDetail = iTaskMapper.selectById(id);
+        Task taskDetail = iTaskMapper.getTask(where);
         return taskDetail;
     }
 

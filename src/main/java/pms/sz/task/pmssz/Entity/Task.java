@@ -79,6 +79,8 @@ public class Task {
 
     private  String updateUser;
 
+    private transient String parentTaskName;
+
     private transient String moduleName;
 
     private transient String moduleCode;

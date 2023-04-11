@@ -4,11 +4,21 @@
 <mapper namespace="pms.sz.task.pmssz.Mapper.ITaskMapper">
     <select id="getTaskList" parameterType="java.util.Map" resultType="pms.sz.task.pmssz.Entity.Task">
         select pms_task.*,
-        pms_routine_status.routine_status_name as status_text,pms_routine_status.color as status_color
+        pms_routine_status.routine_status_name as status_text,pms_routine_status.color as status_color,parent_task.task_name as parent_task_name
         from pms_task
+        left join pms_task as parent_task on pms_task.parent_id=parent_task.id
         left join pms_routine_status on pms_task.status = pms_routine_status.id
         where pms_task.deleted_at is null and pms_routine_status.deleted_at is null
         and pms_task.type=#{type} and pms_task.module_id=#{module_id}
+    </select>
+
+    <select id="getTask" parameterType="java.util.Map" resultType="pms.sz.task.pmssz.Entity.Task">
+        select pms_task.*,
+               pms_routine_status.routine_status_name as status_text,pms_routine_status.color as status_color
+        from pms_task
+                 left join pms_routine_status on pms_task.status = pms_routine_status.id
+        where pms_task.deleted_at is null and pms_routine_status.deleted_at is null
+          and pms_task.id=#{id} limit 1
     </select>
 
 </mapper>
