@@ -1,6 +1,9 @@
 package pms.sz.task.pmssz.Service.Impl;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.stereotype.Service;
 import pms.sz.task.pmssz.Entity.Task;
 import pms.sz.task.pmssz.Mapper.ITaskMapper;
@@ -39,7 +42,7 @@ public class TaskServiceImpl implements TaskService {
     public List getDueTaskList(Integer day)
     {
         //计算需要提醒的日期
-        Date threeDaysAgo = new Date(new Date().getTime()-day*24*3600*1000);
+        Date threeDaysAgo = new Date(new Date().getTime()+day*24*3600*1000);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String threeDays = sdf.format(threeDaysAgo);
 

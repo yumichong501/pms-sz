@@ -4,23 +4,18 @@ import jakarta.servlet.ServletContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
+import pms.sz.task.pmssz.Event.DueTaskEvent;
 import pms.sz.task.pmssz.Service.Impl.TaskServiceImpl;
 
 import java.util.List;
 
-public class DueTaskListener implements ApplicationListener<ContextRefreshedEvent> {
+@Component
+public class DueTaskListener implements ApplicationListener<DueTaskEvent> {
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent)
+    public void onApplicationEvent(DueTaskEvent dueTaskEvent)
     {
-        //上下文
-        ApplicationContext applicationContext = contextRefreshedEvent.getApplicationContext();
-        TaskServiceImpl taskService = applicationContext.getBean(TaskServiceImpl.class);
-
-        //取出3天到期的任务列表
-        List taskDueList = taskService.getDueTaskList(3);
-
-        ServletContext servletContext = applicationContext.getBean(ServletContext.class);
-        servletContext.setAttribute("taskDueList",taskDueList);
+        dueTaskEvent.sendMsg(dueTaskEvent.getDueTaskList());
     }
 }
