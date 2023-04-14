@@ -6,10 +6,8 @@ import pms.sz.task.pmssz.Entity.Task;
 import pms.sz.task.pmssz.Mapper.ITaskMapper;
 import pms.sz.task.pmssz.Service.TaskService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -34,6 +32,21 @@ public class TaskServiceImpl implements TaskService {
         where.put("id",id);
         Task taskDetail = iTaskMapper.getTask(where);
         return taskDetail;
+    }
+
+
+    //获取临期任务
+    public List getDueTaskList(Integer day)
+    {
+        //计算需要提醒的日期
+        Date threeDaysAgo = new Date(new Date().getTime()-day*24*3600*1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String threeDays = sdf.format(threeDaysAgo);
+
+        Map where = new HashMap();
+        where.put("schedule_end_time",threeDays);
+        List threeDueTask = iTaskMapper.getDueTaskList(where);
+        return threeDueTask;
     }
 
 

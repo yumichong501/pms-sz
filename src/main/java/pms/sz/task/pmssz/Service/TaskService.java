@@ -11,5 +11,6 @@ public interface TaskService {
 
     public Task getTask(Integer id);
 
-
+    //获取临期任务列表
+    public List getDueTaskList(Integer day);
 }

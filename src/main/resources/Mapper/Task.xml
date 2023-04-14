@@ -21,4 +21,8 @@
           and pms_task.id=#{id} limit 1
     </select>
 
+    <select id="getDueTaskList" parameterType="java.util.Map" resultType="pms.sz.task.pmssz.Entity.Task">
+        select * from pms_task where deleted_at is null and schedule_end_time = #{schedule_end_time}
+    </select>
+
 </mapper>
