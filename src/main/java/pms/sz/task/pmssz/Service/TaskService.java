@@ -13,4 +13,7 @@ public interface TaskService {
 
     //获取临期任务列表
     public List getDueTaskList(Integer day);
+
+    //获取计划
+    public List getPlanList(Integer type,Integer module_id);
 }

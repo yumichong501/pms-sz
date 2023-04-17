@@ -37,6 +37,15 @@ public class TaskServiceImpl implements TaskService {
         return taskDetail;
     }
 
+    public List getPlanList(Integer type, Integer module_id) {
+        Map where = new HashMap();
+        where.put("type",type);
+        where.put("module_id",module_id);
+        where.put("parent_id",0);
+        List taskList= iTaskMapper.getTaskList(where);
+        return taskList;
+    }
+
 
     //获取临期任务
     public List getDueTaskList(Integer day)

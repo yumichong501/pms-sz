@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import pms.sz.task.pmssz.Entity.Task;
 import pms.sz.task.pmssz.Event.DueTaskEvent;
@@ -44,6 +45,15 @@ public class TaskController {
     {
         Task taskDetail = taskService.getTask(id);
         return ResponseUtils.success(taskDetail);
+    }
+
+    //计划列表
+    @GetMapping("/task/getPlanList")
+    public JsonResponseInfo getPlanList(@RequestParam @NotNull(message = "关联类型异常") Integer type,
+                                        @NotNull(message = "关联id不能为空") Integer moduleId)
+    {
+        List planList = taskService.getPlanList(type,moduleId);
+        return ResponseUtils.success(planList);
     }
 
     @GetMapping("/task/noticeTaskDue")

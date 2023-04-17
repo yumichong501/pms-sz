@@ -10,6 +10,9 @@
         left join pms_routine_status on pms_task.status = pms_routine_status.id
         where pms_task.deleted_at is null and pms_routine_status.deleted_at is null
         and pms_task.type=#{type} and pms_task.module_id=#{module_id}
+        <if test="parent_id != null">
+        and pms_task.parent_id=#{parent_id}
+        </if>
     </select>
 
     <select id="getTask" parameterType="java.util.Map" resultType="pms.sz.task.pmssz.Entity.Task">
