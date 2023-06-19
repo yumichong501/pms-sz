@@ -24,7 +24,11 @@ public class TaskServiceImpl implements TaskService {
         Map where = new HashMap();
         where.put("type",type);
         where.put("module_id",module_id);
-        List taskList= iTaskMapper.getTaskList(where);
+        List<Task> taskList= iTaskMapper.getTaskList(where);
+        for (Task task:taskList) {
+            List milestone = getMilestoneByPlanId(task.getId());
+            task.setMilestone(milestone);
+        }
         return setTaskTree(taskList,0);
     }
 
@@ -46,6 +50,13 @@ public class TaskServiceImpl implements TaskService {
         return taskList;
     }
 
+    @Override
+    public List getMilestoneByPlanId(Integer plan_id) {
+        Map where = new HashMap();
+        where.put("parent_id",plan_id);
+        List milestoneList = iTaskMapper.getMilestoneByPlanId(where);
+        return milestoneList;
+    }
 
     //获取临期任务
     public List getDueTaskList(Integer day)

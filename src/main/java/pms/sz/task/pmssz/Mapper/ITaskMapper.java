@@ -15,4 +15,6 @@ public interface ITaskMapper extends BaseMapper<Task> {
     public Task getTask(Map query);
 
     public List getDueTaskList(Map query);
+
+    public List getMilestoneByPlanId(Map query);
 }

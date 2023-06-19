@@ -91,5 +91,7 @@ public class Task {
 
     private transient List<Task> children;
 
+    private transient List<Task> milestone;
+
 
 }

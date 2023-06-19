@@ -23,6 +23,10 @@
         where pms_task.deleted_at is null and pms_routine_status.deleted_at is null
           and pms_task.id=#{id} limit 1
     </select>
+    <select id="getMilestoneByPlanId" parameterType="java.util.Map" resultType="pms.sz.task.pmssz.Entity.Task">
+        select id,task_name,schedule_start_time, schedule_end_time,actual_start_time,actual_end_time,status,risk_status
+               from pms_task where deleted_at is null and parent_id= #{parent_id} and is_milestone=1
+    </select>
 
     <select id="getDueTaskList" parameterType="java.util.Map" resultType="pms.sz.task.pmssz.Entity.Task">
         select * from pms_task where deleted_at is null and schedule_end_time = #{schedule_end_time}

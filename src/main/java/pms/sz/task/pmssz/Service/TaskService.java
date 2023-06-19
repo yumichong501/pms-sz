@@ -16,4 +16,7 @@ public interface TaskService {
 
     //获取计划
     public List getPlanList(Integer type,Integer module_id);
+
+    //根据计划id获取对应里程碑
+    public List getMilestoneByPlanId(Integer plan_id) ;
 }
